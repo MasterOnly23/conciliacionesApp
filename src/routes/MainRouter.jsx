@@ -1,14 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBarComponent from "../components/NavBarComponent/NavBarComponent";
+import SideBarMainComponent from "../components/SideBar/SideBarMainComponent/SideBarMainComponent";
 
 
 const MainRoutes = () => {
   return (
     <Router>
-      <NavBarComponent />
+        <div className="sidebarRoute">
+      <SideBarMainComponent />
+      <div className="contentRoutes">
       <Routes>
-        <Route path=""/>
+      <Route path="/" exact  />
+        <Route path="/about"  />
       </Routes>
+      </div>
+      </div>
     </Router>
   );
 };

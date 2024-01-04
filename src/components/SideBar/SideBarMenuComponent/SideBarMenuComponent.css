@@ -1,0 +1,35 @@
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+.sidebar-menu .option-menu {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  padding-bottom: 10px;
+}
+
+.sidebar-menu .option-menu:hover {
+  text-decoration: underline;
+  color: rgba(255, 255, 255);
+}
+
+.sidebar-menu ul li {
+  list-style: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.sidebar-menu .option-menu{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.sidebar-menu .option-menu img{
+  width: 20px;
+  color: aqua;
+}

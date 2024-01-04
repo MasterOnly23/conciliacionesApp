@@ -1,5 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import MainRoutes from './routes/MainRouter.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
