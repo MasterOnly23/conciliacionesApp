@@ -3,6 +3,8 @@
   flex-direction: column;
   align-items: center;
   color: #fff;
+  justify-content: center;
+  margin-top: 50px;
 }
 .sidebar-menu .option-menu {
   display: block;
@@ -31,5 +33,40 @@
 
 .sidebar-menu .option-menu img{
   width: 20px;
-  color: aqua;
+  filter: invert(1) grayscale(1) brightness(0.6);
+  transition: transform 0.3s ease;
+}
+.sidebar-menu .option-menu:hover img{
+  filter: invert(1) grayscale(0) brightness(1);
+}
+
+.sidebar-menu .option-menu .rotate-toggle{
+  transform: rotate(180deg);
+}
+
+.contracted {
+  height: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease
+}
+
+.expanded {
+  height: 100px;
+  --animate-duration: 0.3s;
+}
+
+.sidebar-menu .submenu li{
+  list-style-type: disc;
+}
+.submenu li{
+  color: rgba(255, 255, 255, 0.6);
+}
+.submenu li a{
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  padding-bottom: 10px;
+}
+
+.submenu li:hover, .submenu li:hover a{
+  color: rgba(255, 255, 255);
 }

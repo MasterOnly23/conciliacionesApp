@@ -1,0 +1,12 @@
+@import "animate.css";
+
+.sidebar-logo-personal {
+  width: 100%;
+}
+
+.sidebar-logo-personal img {
+  width: 45px;
+  position: absolute;
+  bottom: 15px;
+  left: 20px;
+}

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SideBarMenuComponent.css";
-import DropdownToggle from "../../../assets/img/toggles/dropdown-50.png";
-import DropupToggle from "../../../assets/img/toggles/dropup-50.png";
 import Toggle from "../../../assets/img/toggles/arrow-down.svg";
+import 'animate.css';
 
 export const SideBarMenuComponent = () => {
   const [isBancosExpanded, setIsBancosExpanded] = useState(false);
@@ -20,20 +19,18 @@ export const SideBarMenuComponent = () => {
   return (
     <div className="sidebar-menu">
       <ul>
-        <li onClick={toggleBancos}><div className="option-menu"><span>Bancos</span> <span><img src={isBancosExpanded ? DropupToggle : Toggle} alt="dropdown toggle" /></span></div></li>
+        <li onClick={toggleBancos}><div className="option-menu" ><span>Bancos</span> <span><img className={isBancosExpanded ? 'rotate-toggle' : ''} src={Toggle} alt="dropdown toggle" /></span></div></li>
         {isBancosExpanded && (
-          <ul className="submenu">
-            <li>Opción 1</li>
-            <li>Opción 2</li>
-            {/* Agrega más opciones según sea necesario */}
+          <ul className={`submenu ${isBancosExpanded ? 'animate__animated animate__slideInUp  expanded' : 'contracted'}`}>
+            <li><Link to="/banco1">Banco 1</Link></li>
+            <li><Link to="/banco2">Banco 2</Link></li>
           </ul>
         )}
-        <li onClick={toggleConfiguracion}><div className="option-menu"><span>Configuracion</span> <span><img src={isConfiguracionExpanded ? DropupToggle : DropdownToggle} alt="dropdown toggle" /></span></div></li>
+        <li onClick={toggleConfiguracion}><div className="option-menu" ><span>Configuracion</span> <span><img className={isConfiguracionExpanded ? 'rotate-toggle' : ''} src={Toggle} alt="dropdown toggle" /></span></div></li>
         {isConfiguracionExpanded && (
-          <ul className="submenu">
-            <li>Opción A</li>
-            <li>Opción B</li>
-            {/* Agrega más opciones según sea necesario */}
+          <ul className={`submenu ${isConfiguracionExpanded ? 'animate__animated animate__slideInUp expanded' : 'contracted'}`}>
+            <li><Link to="/banco1">Banco 1</Link></li>
+            <li><Link to="/banco2">Banco 2</Link></li>
           </ul>
         )}
       </ul>
@@ -42,6 +39,6 @@ export const SideBarMenuComponent = () => {
 };
 
 
-// <Link to="/">Home</Link>
+// 
 //       <Link to="/dashboard">Dashboard</Link>
 //       <Link to="/about">About</Link>
