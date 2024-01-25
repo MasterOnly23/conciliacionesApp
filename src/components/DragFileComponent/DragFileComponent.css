@@ -31,39 +31,18 @@
   font-size: 16px;
   text-align: center;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .drag-file:hover {
-  border-color: linear-gradient(
-    90deg,
-    transparent 50%,
-    rgb(255, 49, 49)
-  );
-}
-
-@keyframes spin {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-    width: 0;
-  }
-
-  75% {
-    opacity: 1;
-    width: 100%;
-  }
-
-  76%,
-  100% {
-    opacity: 0;
-  }
+  border-color: #16334b;
+  transform: scale(1.1);
 }
 
 .drag-file-hover {
   border-color: #f50057;
   color: #f50057;
+  transform: scale(1.1);
 }
 
 .drag-file-clicked {
