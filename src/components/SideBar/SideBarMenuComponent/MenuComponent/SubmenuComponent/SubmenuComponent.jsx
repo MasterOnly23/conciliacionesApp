@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 export const SubmenuComponent = ({ isActive, links }) => {
   return (
+    <>
     <ul className={`submenu ${isActive ? 'isActive' : ''}`}>
       {links.map((link, index) => (
         <li key={index}>
@@ -10,6 +11,7 @@ export const SubmenuComponent = ({ isActive, links }) => {
         </li>
       ))}
     </ul>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import { MenuComponent } from "./MenuComponent/MenuComponent";
 
 export const SideBarMenuComponent = () => {
   const menuNames = {
-    BANCOS: 'Bancos',
+    CONCILIACIONES: 'Conciliaciones',
     CONFIGURACION: 'Configuracion'
   };
 
@@ -16,7 +16,7 @@ export const SideBarMenuComponent = () => {
   };
 
   const links = {
-    [menuNames.BANCOS]: [
+    [menuNames.CONCILIACIONES]: [
       { path: "/banco1", name: "Banco 1" },
       { path: "/banco2", name: "Banco 2" }
     ],
@@ -30,10 +30,10 @@ export const SideBarMenuComponent = () => {
     <div className="sidebar-menu">
       <ul>
         <MenuComponent
-          menuName={menuNames.BANCOS}
-          isActive={activeMenu === menuNames.BANCOS}
+          menuName={menuNames.CONCILIACIONES}
+          isActive={activeMenu === menuNames.CONCILIACIONES}
           toggleMenu={toggleMenu}
-          links={links[menuNames.BANCOS]}
+          links={links[menuNames.CONCILIACIONES]}
         />
         <MenuComponent
           menuName={menuNames.CONFIGURACION}

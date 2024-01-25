@@ -13,7 +13,8 @@
   
   .contentRoutes {
     flex: 1;
-    padding: 20px;
+    padding: 0px;
+    background-color: #f4f4f4;
   }
   
   .sidebar a {

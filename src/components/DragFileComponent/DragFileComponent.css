@@ -1,0 +1,82 @@
+.drag-file-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fileInput-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  height: 600px;
+}
+
+.labelInput-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.drag-file {
+  width: 300px;
+  height: 200px;
+  border: 2px dashed #4caf50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4cad4f;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.drag-file:hover {
+  border-color: linear-gradient(
+    90deg,
+    transparent 50%,
+    rgb(255, 49, 49)
+  );
+}
+
+@keyframes spin {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+    width: 0;
+  }
+
+  75% {
+    opacity: 1;
+    width: 100%;
+  }
+
+  76%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.drag-file-hover {
+  border-color: #f50057;
+  color: #f50057;
+}
+
+.drag-file-clicked {
+  background-color: rgba(245, 0, 87, 0.6);
+  color: #fff;
+}
+
+.inside-label-drag .name-file-inside span{
+  font-weight: bold;
+  color: black;
+}
+
+.inside-label-drag .name-file-inside .fileName{
+  border: dashed 2px black;
+  padding: 5px;
+}
