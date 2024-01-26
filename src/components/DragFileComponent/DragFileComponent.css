@@ -21,17 +21,18 @@
 }
 
 .drag-file {
-  width: 300px;
-  height: 200px;
+  width: 500px;
+  height: 300px;
   border: 2px dashed #4caf50;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #4cad4f;
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 0 10px;
 }
 
 .drag-file:hover {

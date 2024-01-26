@@ -8,9 +8,9 @@ export const DragFileComponent = () => {
   const [isClicked1, setIsClicked1] = useState(false);
   const [file1, setFile1] = useState(null);
 
-  const [isDragging2, setIsDragging2] = useState(false);
-  const [isClicked2, setIsClicked2] = useState(false);
-  const [file2, setFile2] = useState(null);
+  // const [isDragging2, setIsDragging2] = useState(false);
+  // const [isClicked2, setIsClicked2] = useState(false);
+  // const [file2, setFile2] = useState(null);
 
   const handleDragOver = (e, setIsDragging) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ export const DragFileComponent = () => {
       <SubHeader />
       <div className="fileInput-container">
         <div className="labelInput-container">
-          <span>Archivo 1</span>
+          <span>Archivo a Conciliar</span>
           <FileInput
             isDragging={isDragging1}
             isClicked={isClicked1}
@@ -54,7 +54,7 @@ export const DragFileComponent = () => {
             handleClick={() => handleClick(setIsClicked1)}
           />
         </div>
-        <div className="labelInput-container">
+        {/* <div className="labelInput-container">
           <span>Archivo 2</span>
           <FileInput
             isDragging={isDragging2}
@@ -66,7 +66,7 @@ export const DragFileComponent = () => {
             handleDrop={(e) => handleDrop(e, setIsDragging2, setFile2)}
             handleClick={() => handleClick(setIsClicked2)}
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
