@@ -7,7 +7,7 @@ export const MenuComponent = ({ menuName, isActive, toggleMenu, links }) => {
     <>
       <li onClick={() => toggleMenu(menuName)}>
         <div className="option-menu">
-          <span>{menuName}</span>{" "}
+          <span>{menuName}</span>
           <span>
             <img
               className={isActive ? "rotate-toggle" : ""}

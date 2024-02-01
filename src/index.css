@@ -1,7 +1,22 @@
+@font-face {
+  font-family: 'Dr Ahorro';
+  src: url('./assets/fonts/DINPro-Black_2.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Dr Ahorro';
+  src: url('./assets/fonts/FF_DIN_Pro_Bold_Italic_0.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Dr Ahorro', sans-serif;
 }
 
 :root {

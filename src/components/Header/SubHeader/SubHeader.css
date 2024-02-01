@@ -19,9 +19,11 @@
 .subheader .subheader-container h1{
     padding: 10px 0px;
     margin: 0px 10px;
+    font-weight: bold;
 }
 
 .subheader .subheader-container img{
-    width: 50px;
-    border-radius: 50%;
+    width: 60px;
+    border-radius: 0;
+    object-fit: contain;
 }

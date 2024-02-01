@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export const SubmenuComponent = ({ isActive, links }) => {
+  console.log(links)
   return (
     <>
     <ul className={`submenu ${isActive ? 'isActive' : ''}`}>

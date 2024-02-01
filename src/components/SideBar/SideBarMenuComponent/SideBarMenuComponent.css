@@ -47,18 +47,20 @@
 .sidebar-menu .submenu{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   padding-left: 0;
   height: 0;
   opacity: 0;
   overflow: hidden;
-  width: 200px;
+  width: 150px;
+  margin-left: 20px;
   transition: all 0.3s ease;
 }
 
+/* Tamano container numero de bancos */
 .sidebar-menu .isActive{
-  height: 100px;
+  height: 200px;
   opacity: 1;
 }
 
@@ -79,6 +81,7 @@
 }
 .submenu li{
   color: rgba(255, 255, 255, 0.6);
+  width: 120px;
 }
 .submenu li a{
   color: rgba(255, 255, 255, 0.6);

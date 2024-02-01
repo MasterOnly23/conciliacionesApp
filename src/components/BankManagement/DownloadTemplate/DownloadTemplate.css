@@ -1,0 +1,34 @@
+.download-template{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 30px 50px;
+    
+}
+
+.download-template button{
+    margin-right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all  0.3s ease;
+}
+
+.download-template button:hover{
+    background-color: #45a049;
+    transform: scale(1.2);
+}
+
+@media only screen and (max-width: 768px) {
+	.download-template{
+        flex-direction: column;
+        margin: 20px;
+    }
+	.download-template button{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

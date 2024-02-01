@@ -17,8 +17,10 @@ export const SideBarMenuComponent = () => {
 
   const links = {
     [menuNames.CONCILIACIONES]: [
-      { path: "/banco1", name: "Banco 1" },
-      { path: "/banco2", name: "Banco 2" }
+      { path: "/BancoComafi", name: "Banco Comafi" },
+      { path: "/BancoSantander", name: "Banco Santander" },
+      { path: "/BancoGalicia", name: "Banco Galicia" },
+      { path: "/BancoICBC", name: "Banco ICBC" }
     ],
     [menuNames.CONFIGURACION]: [
       { path: "/config1", name: "Config 1" },

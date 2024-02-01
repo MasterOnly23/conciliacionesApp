@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { SubHeader } from "../Header/SubHeader/SubHeader";
 import { FileInput } from "./FileInput/FileInput";
 import "./DragFileComponent.css";
 
@@ -39,7 +38,6 @@ export const DragFileComponent = () => {
   
   return (
     <>
-      <SubHeader />
       <div className="fileInput-container">
         <div className="labelInput-container">
           <span>Archivo a Conciliar</span>

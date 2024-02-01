@@ -1,23 +1,35 @@
 import { useParams } from "react-router-dom";
 import "./SubHeader.css";
-import Logo1 from "../../../assets/img/logo.png";
-import Logo2 from "../../../assets/img/logo.png";
+import Comafi from "../../../assets/img/bancos/banco_comafi.webp";
+import Santander from "../../../assets/img/bancos/banco_santander.png";
+import Galicia from "../../../assets/img/bancos/banco_galicia.png";
+import ICBC from "../../../assets/img/bancos/banco_icbc.png";
 
 export const SubHeader = () => {
 
 const logos = {
-        banco1: Logo1,
-        banco2: Logo2,
+        BancoComafi: Comafi,
+        BancoSantander: Santander,
+        BancoGalicia: Galicia,
+        BancoICBC: ICBC,
         // Añade más bancos y logos aquí
       };
 
-const { banco } = useParams();
+const nombresBancos = {
+    "BancoComafi": "Banco Comafi",
+    "BancoSantander": "Banco Santander",
+    "BancoGalicia": "Banco Galicia",
+    "BancoICBC": "Banco ICBC",
+    // Añade más bancos aquí
+  };
+
+const { Banco } = useParams();
 
   return (
     <div className="subheader">
         <div className="subheader-container">
-        <img src={logos[banco]} alt="" />
-      <h1>{banco.toUpperCase()}</h1>
+        <img src={logos[Banco]} alt="" />
+      <h1>{nombresBancos[Banco]}</h1>
         </div>
     </div>
   );
