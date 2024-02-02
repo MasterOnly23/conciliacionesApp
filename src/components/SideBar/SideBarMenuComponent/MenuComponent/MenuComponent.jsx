@@ -2,11 +2,14 @@ import PropTypes from "prop-types";
 import Toggle from "../../../..//assets/img/toggles/arrow-down.svg";
 import { SubmenuComponent } from "./SubmenuComponent/SubmenuComponent";
 
-export const MenuComponent = ({ menuName, isActive, toggleMenu, links }) => {
+
+
+export const MenuComponent = ({ menuName, isActive, toggleMenu, links, iconMenu = '' }) => {
   return (
     <>
       <li onClick={() => toggleMenu(menuName)}>
         <div className="option-menu">
+          <span><img src={iconMenu || ''} alt="icon menu" /></span>
           <span>{menuName}</span>
           <span>
             <img
@@ -26,6 +29,7 @@ MenuComponent.propTypes = {
   menuName: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
+  iconMenu: PropTypes.string.isRequired,
   links: PropTypes.arrayOf(
     PropTypes.shape({
       path: PropTypes.string.isRequired,

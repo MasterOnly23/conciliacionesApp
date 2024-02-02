@@ -1,55 +1,85 @@
 import { useState } from "react";
 import { FileInput } from "./FileInput/FileInput";
+import { ToastMessage } from "../../ToastMessage/ToastMessage";
 import "./DragFileComponent.css";
+import PropTypes from "prop-types";
 
-export const DragFileComponent = () => {
-  const [isDragging1, setIsDragging1] = useState(false);
-  const [isClicked1, setIsClicked1] = useState(false);
-  const [file1, setFile1] = useState(null);
+export const DragFileComponent = ({ bankName }) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [file, setFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState(null);
+  const [resUpload, setResUpload] = useState("");
 
   // const [isDragging2, setIsDragging2] = useState(false);
   // const [isClicked2, setIsClicked2] = useState(false);
   // const [file2, setFile2] = useState(null);
 
-  const handleDragOver = (e, setIsDragging) => {
+  const handleDragOver = (e) => {
     e.preventDefault();
     setIsDragging(true);
   };
 
-  const handleDragLeave = (setIsDragging) => {
+  const handleDragLeave = () => {
     setIsDragging(false);
   };
 
-  const handleDrop = (e, setIsDragging, setFile) => {
+  const handleDrop = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setIsDragging(false);
-    let files = [...e.dataTransfer.files];
-    setFile(files[0]);
+    let file = e.target.files;
+    setFile(file);
+    setIsLoading(false);
   };
 
-  const handleFileChange = (e, setFile) => {
-    let files = [...e.target.files];
-    setFile(files[0]);
+  const handleFileChange = (e) => {
+    let file = e.target.files && e.target.files[0];
+    if (file) {
+      try {
+        setIsLoading(true);
+        setFile(file);
+        setShowToast(true);
+        setMessage("Archivo cargado correctamente.");
+      } catch (err) {
+        console.log(err);
+        setMessage("Ocurrió un error durante la carga del archivo.");
+        setResUpload("error");
+      } finally {
+        setIsLoading(false);
+      }
+    }
   };
 
-  const handleClick = (isClicked, setIsClicked) => {
+  const handleClick = () => {
     setIsClicked(!isClicked);
   };
-  
+
   return (
     <>
       <div className="fileInput-container">
+        {showToast && (
+          <ToastMessage
+            resUpload={resUpload}
+            setShowToast={setShowToast}
+            showToast={showToast}
+            messageResponse={message}
+          />
+        )}
         <div className="labelInput-container">
           <span>Archivo a Conciliar</span>
           <FileInput
-            isDragging={isDragging1}
-            isClicked={isClicked1}
-            file={file1}
-            handleFileChange={(e) => handleFileChange(e, setFile1)}
-            handleDragOver={(e) => handleDragOver(e, setIsDragging1)}
-            handleDragLeave={() => handleDragLeave(setIsDragging1)}
-            handleDrop={(e) => handleDrop(e, setIsDragging1, setFile1)}
-            handleClick={() => handleClick(setIsClicked1)}
+            isDragging={isDragging}
+            isClicked={isClicked}
+            file={file}
+            isLoading={isLoading}
+            handleFileChange={(e) => handleFileChange(e)}
+            handleDragOver={(e) => handleDragOver(e)}
+            handleDragLeave={(e) => handleDragLeave(e)}
+            handleDrop={(e) => handleDrop(e)}
+            handleClick={() => handleClick()}
           />
         </div>
         {/* <div className="labelInput-container">
@@ -68,4 +98,9 @@ export const DragFileComponent = () => {
       </div>
     </>
   );
+};
+
+
+DragFileComponent.propTypes = {
+  bankName: PropTypes.string.isRequired,
 };

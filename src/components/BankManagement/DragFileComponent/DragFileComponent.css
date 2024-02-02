@@ -6,10 +6,18 @@
 
 .fileInput-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 50px;
   height: 600px;
+}
+
+.toaster-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .labelInput-container{

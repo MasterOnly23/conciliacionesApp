@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./SideBarMenuComponent.css";
 import "animate.css";
 import { MenuComponent } from "./MenuComponent/MenuComponent";
+import  Bank  from "../../../assets/img/sidebarLogo/bank.png"
+import  Settings  from "../../../assets/img/sidebarLogo/settings.png"
 
 export const SideBarMenuComponent = () => {
   const menuNames = {
@@ -36,12 +38,14 @@ export const SideBarMenuComponent = () => {
           isActive={activeMenu === menuNames.CONCILIACIONES}
           toggleMenu={toggleMenu}
           links={links[menuNames.CONCILIACIONES]}
+          iconMenu={Bank}
         />
         <MenuComponent
           menuName={menuNames.CONFIGURACION}
           isActive={activeMenu === menuNames.CONFIGURACION}
           toggleMenu={toggleMenu}
           links={links[menuNames.CONFIGURACION]}
+          iconMenu={Settings}
         />
       </ul>
     </div>
