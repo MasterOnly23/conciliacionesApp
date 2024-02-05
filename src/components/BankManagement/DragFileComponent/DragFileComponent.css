@@ -54,10 +54,10 @@
   transform: scale(1.1);
 }
 
-.drag-file-clicked {
+/* .drag-file-clicked {
   background-color: rgba(245, 0, 87, 0.6);
   color: #fff;
-}
+} */
 
 .inside-label-drag .name-file-inside span{
   font-weight: bold;

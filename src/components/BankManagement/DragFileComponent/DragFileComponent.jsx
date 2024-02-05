@@ -4,10 +4,10 @@ import { ToastMessage } from "../../ToastMessage/ToastMessage";
 import "./DragFileComponent.css";
 import PropTypes from "prop-types";
 
-export const DragFileComponent = ({ bankName }) => {
+export const DragFileComponent = ({ bankName, file, setFile }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState(null);
@@ -16,6 +16,21 @@ export const DragFileComponent = ({ bankName }) => {
   // const [isDragging2, setIsDragging2] = useState(false);
   // const [isClicked2, setIsClicked2] = useState(false);
   // const [file2, setFile2] = useState(null);
+
+  const handleFileLoad = (file) => {
+    try {
+      setIsLoading(true);
+      setFile(file);
+      setShowToast(true);
+      setMessage("Archivo cargado correctamente.");
+    } catch (err) {
+      console.log(err);
+      setMessage("Ocurrió un error durante la carga del archivo.");
+      setResUpload("error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -28,28 +43,18 @@ export const DragFileComponent = ({ bankName }) => {
 
   const handleDrop = (e) => {
     e.preventDefault();
-    setIsLoading(true);
     setIsDragging(false);
-    let file = e.target.files;
-    setFile(file);
-    setIsLoading(false);
+    let file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) {
+      handleFileLoad(file);
+    }
   };
 
   const handleFileChange = (e) => {
     let file = e.target.files && e.target.files[0];
     if (file) {
-      try {
-        setIsLoading(true);
-        setFile(file);
-        setShowToast(true);
-        setMessage("Archivo cargado correctamente.");
-      } catch (err) {
-        console.log(err);
-        setMessage("Ocurrió un error durante la carga del archivo.");
-        setResUpload("error");
-      } finally {
-        setIsLoading(false);
-      }
+      handleFileLoad(file);
+      e.target.value = null;
     }
   };
 
@@ -59,7 +64,8 @@ export const DragFileComponent = ({ bankName }) => {
 
   return (
     <>
-      <div className="fileInput-container">
+      <div className="fileInput-container position-relative">
+        <div className="position-absolute top-0 start-40  zindex-1 ms-5">
         {showToast && (
           <ToastMessage
             resUpload={resUpload}
@@ -68,6 +74,7 @@ export const DragFileComponent = ({ bankName }) => {
             messageResponse={message}
           />
         )}
+        </div>
         <div className="labelInput-container">
           <span>Archivo a Conciliar</span>
           <FileInput
@@ -99,7 +106,6 @@ export const DragFileComponent = ({ bankName }) => {
     </>
   );
 };
-
 
 DragFileComponent.propTypes = {
   bankName: PropTypes.string.isRequired,
