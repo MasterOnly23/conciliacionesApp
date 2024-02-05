@@ -30,3 +30,16 @@
     text-decoration: underline;
   }
   
+
+@media screen and (max-width: 1024px) {
+  .contentRoutes {
+    margin-left: 23%;
+  }
+  .sidebar a {
+    margin-bottom: 0;
+  }
+  .sidebar a:hover {
+    text-decoration: none;
+  }
+  
+}
