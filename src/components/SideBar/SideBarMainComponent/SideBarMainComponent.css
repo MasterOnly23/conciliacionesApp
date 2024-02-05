@@ -16,7 +16,7 @@
     flex: 1;
     padding: 0px;
     background-color: #f4f4f4;
-    margin-left: 13%;
+    margin-left: 250px;
   }
   
   .sidebar a {
@@ -33,7 +33,7 @@
 
 @media screen and (max-width: 1024px) {
   .contentRoutes {
-    margin-left: 23%;
+    margin-left: 250px;
   }
   .sidebar a {
     margin-bottom: 0;
