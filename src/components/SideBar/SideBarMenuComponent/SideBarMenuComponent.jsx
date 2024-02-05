@@ -8,7 +8,7 @@ import  Settings  from "../../../assets/img/sidebarLogo/settings.png"
 export const SideBarMenuComponent = () => {
   const menuNames = {
     CONCILIACIONES: 'Conciliaciones',
-    CONFIGURACION: 'Configuracion'
+    AJUSTES: 'Ajustes'
   };
 
   const [activeMenu, setActiveMenu] = useState(null);
@@ -24,8 +24,8 @@ export const SideBarMenuComponent = () => {
       { path: "/BancoGalicia", name: "Banco Galicia" },
       { path: "/BancoICBC", name: "Banco ICBC" }
     ],
-    [menuNames.CONFIGURACION]: [
-      { path: "/config1", name: "Config 1" },
+    [menuNames.AJUSTES]: [
+      { path: "/historial", name: "Historial" },
       { path: "/config2", name: "Config 2" }
     ]
   };
@@ -41,10 +41,10 @@ export const SideBarMenuComponent = () => {
           iconMenu={Bank}
         />
         <MenuComponent
-          menuName={menuNames.CONFIGURACION}
-          isActive={activeMenu === menuNames.CONFIGURACION}
+          menuName={menuNames.AJUSTES}
+          isActive={activeMenu === menuNames.AJUSTES}
           toggleMenu={toggleMenu}
-          links={links[menuNames.CONFIGURACION]}
+          links={links[menuNames.AJUSTES]}
           iconMenu={Settings}
         />
       </ul>

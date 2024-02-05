@@ -5,6 +5,8 @@ import { Header } from "../components/Header/header";
 
 const DashBoard = lazy(() => import("../components/DashBoard/DashBoard").then(module => ({ default: module.DashBoard })));
 const BankManagement = lazy(() => import("../components/BankManagement/BankManagement").then(module => ({ default: module.BankManagement })));
+const Page404 = lazy(() => import("../components/Page404/Page404").then(module => ({ default: module.Page404 })));
+
 
 const MainRoutes = () => {
   return (
@@ -17,6 +19,7 @@ const MainRoutes = () => {
       <Routes>
       <Route path="/" exact element={<DashBoard />} />
         <Route path="/:Banco" element={<BankManagement/>} />
+        <Route path="/*" element={<Page404 />} />
       </Routes>
       </Suspense>
       
