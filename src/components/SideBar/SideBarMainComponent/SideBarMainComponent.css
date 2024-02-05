@@ -3,6 +3,7 @@
   }
   
   .sidebar-main {
+    position: fixed;
     display: flex;
     flex-direction: column; 
     height: 100vh; 
@@ -15,6 +16,7 @@
     flex: 1;
     padding: 0px;
     background-color: #f4f4f4;
+    margin-left: 13%;
   }
   
   .sidebar a {
