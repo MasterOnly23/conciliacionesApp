@@ -20,7 +20,6 @@ const nombresBancos = {
     "BancoSantander": "Banco Santander",
     "BancoGalicia": "Banco Galicia",
     "BancoICBC": "Banco ICBC",
-    // Añade más bancos aquí
   };
 
 const { Banco } = useParams();

@@ -1,0 +1,31 @@
+.date-picker {
+    width: 100%;
+    padding: 10px;
+    margin-left: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .date-picker:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+.ModalTittle-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ced4da;
+    gap: 10px;
+
+}
+  .ModalTittle-img{
+    width: 50px;
+}
