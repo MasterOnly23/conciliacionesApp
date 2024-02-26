@@ -10,9 +10,12 @@ import Comafi from "../../../../assets/img/bancos/banco_comafi.webp";
 import Santander from "../../../../assets/img/bancos/banco_santander.png";
 import Galicia from "../../../../assets/img/bancos/banco_galicia.png";
 import ICBC from "../../../../assets/img/bancos/banco_icbc.png";
+import { downloadTemplate } from "../../core/_requests";
 
 export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [isLoading, setIsLoading] = useState(false);
+  const { Banco } = useParams();
 
   const logos = {
     Comafi: Comafi,
@@ -21,6 +24,12 @@ export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
     ICBC: ICBC,
     // Añade más bancos y logos aquí
   };
+
+  const handleDownload = async () => {
+    setIsLoading(true);
+    const response = await downloadTemplate(Banco, selectedDate);
+
+  }
 
   return (
     <>
@@ -64,7 +73,7 @@ export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          <Button variant="success" onClick={handleClose}>
+          <Button variant="success" onClick={handleDownload}>
             Descargar
           </Button>
         </Modal.Footer>
