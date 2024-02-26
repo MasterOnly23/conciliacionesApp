@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from 'react';
 import SideBarMainComponent from "../components/SideBar/SideBarMainComponent/SideBarMainComponent";
 import { Header } from "../components/Header/header";
+import { Loadder } from "../components/Loadder/Loadder";
 
 const DashBoard = lazy(() => import("../components/DashBoard/DashBoard").then(module => ({ default: module.DashBoard })));
 const BankManagement = lazy(() => import("../components/BankManagement/BankManagement").then(module => ({ default: module.BankManagement })));
@@ -15,7 +16,7 @@ const MainRoutes = () => {
       <SideBarMainComponent />
       <div className="contentRoutes">
       <Header />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loadder/>}>
       <Routes>
       <Route path="/" exact element={<DashBoard />} />
         <Route path="/:Banco" element={<BankManagement/>} />

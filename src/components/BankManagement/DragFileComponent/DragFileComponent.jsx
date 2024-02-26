@@ -1,10 +1,12 @@
-import { useState } from "react";
+import {  useEffect, useState, useContext } from "react";
 import { FileInput } from "./FileInput/FileInput";
 import { ToastMessage } from "../../ToastMessage/ToastMessage";
 import "./DragFileComponent.css";
 import PropTypes from "prop-types";
+import { uploadFile } from "../core/_requests";
+import { BankContext } from "../core/_context";
 
-export const DragFileComponent = ({ bankName, file, setFile }) => {
+export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   // const [file, setFile] = useState(null);
@@ -12,21 +14,32 @@ export const DragFileComponent = ({ bankName, file, setFile }) => {
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState(null);
   const [resUpload, setResUpload] = useState("");
+  const [uploadSuccessful, setUploadSuccessful] = useState(false);
+  const { BankName, setBankName, periodo, setPeriodo } = useContext(BankContext);
+  
 
   // const [isDragging2, setIsDragging2] = useState(false);
   // const [isClicked2, setIsClicked2] = useState(false);
   // const [file2, setFile2] = useState(null);
 
-  const handleFileLoad = (file) => {
+  const handleFileLoad = async (file) => {
     try {
       setIsLoading(true);
       setFile(file);
+      const response = await uploadFile(file);
       setShowToast(true);
       setMessage("Archivo cargado correctamente.");
+      console.log(response.data.bank_name, response.data.periodo);
+      setBankName(response.data.bank_name);
+      setPeriodo(response.data.periodo);
+      if (response.status === 200) {
+        setUploadSuccessful(true);
+      }
     } catch (err) {
       console.log(err);
       setMessage("Ocurrió un error durante la carga del archivo.");
       setResUpload("error");
+      setFileUploaded(false);
     } finally {
       setIsLoading(false);
     }
@@ -61,6 +74,16 @@ export const DragFileComponent = ({ bankName, file, setFile }) => {
   const handleClick = () => {
     setIsClicked(!isClicked);
   };
+
+  useEffect(() => {
+    if (uploadSuccessful) {
+      setIsLoading(true);
+      setTimeout(() => {
+        setFileUploaded(true);
+      }, 2000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadSuccessful]);
 
   return (
     <>
@@ -109,4 +132,7 @@ export const DragFileComponent = ({ bankName, file, setFile }) => {
 
 DragFileComponent.propTypes = {
   bankName: PropTypes.string.isRequired,
+  file: PropTypes.object,
+  setFile: PropTypes.func.isRequired,
+  setFileUploaded: PropTypes.func.isRequired,
 };

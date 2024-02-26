@@ -19,6 +19,7 @@ export const FileInput = ({
         multiple
         onChange={handleFileChange}
         style={{ display: "none" }}
+        disabled={isLoading}
       />
       <label
         htmlFor="fileInput"
