@@ -11,11 +11,11 @@ import Santander from "../../../../assets/img/bancos/banco_santander.png";
 import Galicia from "../../../../assets/img/bancos/banco_galicia.png";
 import ICBC from "../../../../assets/img/bancos/banco_icbc.png";
 import { downloadTemplate } from "../../core/_requests";
+import { Loadder } from "../../../Loadder/Loadder";
 
 export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
-  const { Banco } = useParams();
 
   const logos = {
     Comafi: Comafi,
@@ -27,23 +27,46 @@ export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
 
   const handleDownload = async () => {
     setIsLoading(true);
-    const response = await downloadTemplate(Banco, selectedDate);
-
-  }
+    try {
+      const year = selectedDate.getFullYear();
+      const month = selectedDate.getMonth() + 1;
+      const formattedDate = `${year}/${month < 10 ? "0" + month : month}`;
+      // const bank = Banco.substring(5).toUpperCase();
+      const response = await downloadTemplate(bankName.toUpperCase(), formattedDate);
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `Conciliaciones-${bankName}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        setIsLoading(false);
+        handleClose();
+      }, 1000);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title> <div className="ModalTittle-container">
-          <span>
-          Plantilla Banco {bankName}
-          </span>
-          <span>
-          <img className="ModalTittle-img" src={logos[bankName]} alt={`Logo ${bankName}`} style={{ marginLeft: '10px' }} />
-          </span>
-          </div>
-
+          <Modal.Title>
+            {" "}
+            <div className="ModalTittle-container">
+              <span>Plantilla Banco {bankName}</span>
+              <span>
+                <img
+                  className="ModalTittle-img"
+                  src={logos[bankName]}
+                  alt={`Logo ${bankName}`}
+                  style={{ marginLeft: "10px" }}
+                />
+              </span>
+            </div>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -70,12 +93,18 @@ export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-          </Button>
-          <Button variant="success" onClick={handleDownload}>
-            Descargar
-          </Button>
+          {isLoading ? (
+              <Loadder position={'relative'}/>
+           ) : (
+            <>
+              <Button variant="secondary" onClick={handleClose}>
+                Cerrar
+              </Button>
+              <Button variant="success" onClick={handleDownload}>
+                Descargar
+              </Button>
+            </> 
+          )}
         </Modal.Footer>
       </Modal>
     </>
