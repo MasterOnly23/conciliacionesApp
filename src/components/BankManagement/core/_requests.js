@@ -19,10 +19,14 @@ const getNoConciliados = async (bankName, period) => {
   return axios.get(`${GET_NO_CONCILIADOS}?bankName=${bankName}&period=${period}`);
 };
 
-const downloadTemplate = async (bankName, period) => {
-  return axios.get(`${DOWNLOAD_TEMPLATE}?bankName=${bankName}&period=${period}`, { 
+const downloadTemplate = async (bankName, period, action) => {
+  return axios.get(`${DOWNLOAD_TEMPLATE}?action=${action}&bankName=${bankName}&period=${period}`, { 
     responseType: 'blob',
   });
 }
 
-export { uploadFile,  getNoConciliados, downloadTemplate };
+const getHistorial = async (bankName, period, action) => {
+  return axios.get(`${GET_NO_CONCILIADOS}?action=${action}&bankName=${bankName}&period=${period}`);
+};
+
+export { uploadFile,  getNoConciliados, downloadTemplate, getHistorial };

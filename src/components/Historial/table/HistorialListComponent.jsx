@@ -1,12 +1,12 @@
 // import Table from 'react-bootstrap/Table';
 import "./BankListComponent.css";
 import { useEffect, useState, useContext } from "react";
-import { getNoConciliados } from "../core/_requests";
+import { getHistorial } from "../core/_requests";
 import { BankContext } from "../core/_context";
-import { BankTableComponent } from "./BankTableComponent";
+import { HistorialTableComponent } from "./HistorialTableComponent";
 import { useExtractoColumns, useMayorColumns } from "./columns/useColumns";
 
-export const BankListComponent = () => {
+export const HistorialListComponent = () => {
   const [data, setData] = useState([]);
   const { BankName, setBankName, periodo, setPeriodo } =
     useContext(BankContext);
@@ -18,8 +18,11 @@ export const BankListComponent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getNoConciliados(BankName, periodo, 'diferencias');
-      setData(result.data.no_conciliados);
+      const result = await getHistorial(BankName, periodo, 'diferencias');
+      if(result.data){
+        print(result.data);
+        setData(result.data);
+      }
     };
 
     fetchData();
@@ -28,10 +31,10 @@ export const BankListComponent = () => {
   return (
     <div className="d-flex">
     <div className="table-container">
-      <BankTableComponent columns={extractoColumns} data={filteredExtracto} title={'Extracto'} />
+      <HistorialTableComponent columns={extractoColumns} data={filteredExtracto} title={'Extracto'} />
       </div>
       <div className="table-container">
-      <BankTableComponent columns={mayorColumns} data={filteredMayor} title={'Mayor'} />
+      <HistorialTableComponent columns={mayorColumns} data={filteredMayor} title={'Mayor'} />
       </div>
     </div>
   );

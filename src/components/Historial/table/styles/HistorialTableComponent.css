@@ -1,0 +1,17 @@
+.title-table-container{
+    border-bottom: 1px solid #dee2e6;
+}
+
+.rows-cell{
+    border-style: dashed;
+}
+
+.rows-header{
+    font-weight: bold !important;
+    font-size: 18px;
+}
+
+.rows-body{
+    color: #9d9fa5 !important;
+    border-style: dashed;
+}
