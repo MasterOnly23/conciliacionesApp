@@ -20,6 +20,7 @@ export const FileInput = ({
         onChange={handleFileChange}
         style={{ display: "none" }}
         disabled={isLoading}
+        accept=".xls,.xlsx"
       />
       <label
         htmlFor="fileInput"
