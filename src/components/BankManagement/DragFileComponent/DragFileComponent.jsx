@@ -1,10 +1,11 @@
-import {  useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { FileInput } from "./FileInput/FileInput";
 import { ToastMessage } from "../../ToastMessage/ToastMessage";
 import "./DragFileComponent.css";
 import PropTypes from "prop-types";
 import { uploadFile } from "../core/_requests";
 import { BankContext } from "../core/_context";
+import { set } from "date-fns";
 
 export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
   const [isDragging, setIsDragging] = useState(false);
@@ -15,8 +16,8 @@ export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
   const [message, setMessage] = useState(null);
   const [resUpload, setResUpload] = useState("");
   const [uploadSuccessful, setUploadSuccessful] = useState(false);
-  const { BankName, setBankName, periodo, setPeriodo } = useContext(BankContext);
-  
+  const { BankName, setBankName, periodo, setPeriodo } =
+    useContext(BankContext);
 
   // const [isDragging2, setIsDragging2] = useState(false);
   // const [isClicked2, setIsClicked2] = useState(false);
@@ -29,6 +30,7 @@ export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
       const response = await uploadFile(file);
       setShowToast(true);
       setMessage("Archivo cargado correctamente.");
+      setResUpload("success");
       console.log(response.data.bank_name, response.data.periodo);
       setBankName(response.data.bank_name);
       setPeriodo(response.data.periodo);
@@ -36,10 +38,14 @@ export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
         setUploadSuccessful(true);
       }
     } catch (err) {
-      console.log(err);
-      setMessage("Ocurrió un error durante la carga del archivo.");
-      setResUpload("error");
-      setFileUploaded(false);
+      console.log(err.response.data.error);
+      // console.log(err);
+      if (err.response.data.error) {
+        setShowToast(true);
+        setMessage(err.response.data.error);
+        setResUpload("error");
+        setFileUploaded(false);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -75,6 +81,10 @@ export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
     setIsClicked(!isClicked);
   };
 
+  const handleReset = () => {
+    setFile(null);
+  };
+
   useEffect(() => {
     if (uploadSuccessful) {
       setIsLoading(true);
@@ -89,14 +99,14 @@ export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
     <>
       <div className="fileInput-container position-relative">
         <div className="position-absolute top-0 start-40  zindex-1 ms-5">
-        {showToast && (
-          <ToastMessage
-            resUpload={resUpload}
-            setShowToast={setShowToast}
-            showToast={showToast}
-            messageResponse={message}
-          />
-        )}
+          {showToast && (
+            <ToastMessage
+              resUpload={resUpload}
+              setShowToast={setShowToast}
+              showToast={showToast}
+              messageResponse={message}
+            />
+          )}
         </div>
         <div className="labelInput-container">
           <span>Archivo a Conciliar</span>
@@ -110,6 +120,7 @@ export const DragFileComponent = ({ file, setFile, setFileUploaded }) => {
             handleDragLeave={(e) => handleDragLeave(e)}
             handleDrop={(e) => handleDrop(e)}
             handleClick={() => handleClick()}
+            handleReset={() => handleReset()}
           />
         </div>
         {/* <div className="labelInput-container">

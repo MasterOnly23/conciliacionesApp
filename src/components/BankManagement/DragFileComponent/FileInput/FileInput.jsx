@@ -9,6 +9,7 @@ export const FileInput = ({
   handleDragLeave,
   handleDrop,
   handleClick,
+  handleReset,
   isLoading,
 }) => {
   return (
@@ -62,6 +63,9 @@ export const FileInput = ({
           </div>
         )}
       </label>
+      {file && !isLoading &&(
+        <button className="btn btn-secondary" onClick={handleReset}>Reset</button>
+      )}
     </>
   );
 };
@@ -76,4 +80,5 @@ FileInput.propTypes = {
   handleDragLeave: PropTypes.func.isRequired,
   handleDrop: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
 };
