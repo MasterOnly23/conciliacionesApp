@@ -1,15 +1,15 @@
 const ExtractoColumns  = [
     {
       Header: 'Extracto Fecha',
-      accessor: 'extracto.fecha',
+      accessor: 'extracto_fecha',
     },
     {
       Header: 'Extracto Descripción',
-      accessor: 'extracto.descripcion',
+      accessor: 'extracto_descripcion',
     },
     {
       Header: 'Extracto Monto',
-      accessor: 'extracto.monto',
+      accessor: 'extracto_monto',
     },
     
   ];
@@ -18,15 +18,15 @@ const ExtractoColumns  = [
   const MayorColumns  = [
     {
       Header: 'Mayor Fecha',
-      accessor: 'mayor.fecha',
+      accessor: 'mayor_fecha',
     },
     {
         Header: 'Mayor Descripción',
-        accessor: 'mayor.descripcion',
+        accessor: 'mayor_descripcion',
     },
     {
         Header: 'Mayor Monto',
-        accessor: 'mayor.monto',
+        accessor: 'mayor_monto',
     },
     
 ];

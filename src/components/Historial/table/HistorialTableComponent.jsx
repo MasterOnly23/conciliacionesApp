@@ -1,13 +1,13 @@
 import { useTable } from "react-table";
 import PropTypes from "prop-types";
-import "./styles/BankTableComponent.css"
+import "react-datepicker/dist/react-datepicker.css";
 export const HistorialTableComponent = ({columns, data, title}) => {
     
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
 
     return (
-        <div>
+        <div className="table-contain">
             <div className="d-flex justify-content-center title-table-container">
                 <h3>{title.toUpperCase()}</h3>
             </div>

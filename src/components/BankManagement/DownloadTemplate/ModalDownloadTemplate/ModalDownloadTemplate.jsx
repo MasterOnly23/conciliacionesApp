@@ -94,7 +94,7 @@ export const DownloadTemplateModal = ({ show, handleClose, bankName }) => {
         </Modal.Body>
         <Modal.Footer>
           {isLoading ? (
-              <Loadder position={'relative'}/>
+              <Loadder position={'absolute'}/>
            ) : (
             <>
               <Button variant="secondary" onClick={handleClose}>
