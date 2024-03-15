@@ -18,7 +18,8 @@ export const HistorialListComponent = () => {
   const [monto, setMonto] = useState(null);
   const [periodo, setPeriodo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [checkYearAgo , setCheckYearAgo] = useState(true)
+  const [checkYearAgo, setCheckYearAgo] = useState(true);
+  const [limit, setLimit] = useState(10);
   // const { BankName, setBankName, periodo, setPeriodo } =
   //   useContext(BankContext);
   const extractoColumns = useExtractoColumns();
@@ -30,19 +31,17 @@ export const HistorialListComponent = () => {
     const fetchHistorial = async () => {
       try {
         setIsLoading(true);
-        const result = await getHistorial("", "", "historial");
+        const result = await getHistorial("", "", "historial", limit);
 
         if (result.data) {
-          
-          const processedData = result.data
-            .map((item) => {
-              const fileHeader = JSON.parse(item.file_header)[0].fields;
-              const noConciliados = JSON.parse(item.no_conciliados).map(
-                (noConciliado) => noConciliado.fields
-              );
+          const processedData = result.data.map((item) => {
+            const fileHeader = JSON.parse(item.file_header)[0].fields;
+            const noConciliados = JSON.parse(item.no_conciliados).map(
+              (noConciliado) => noConciliado.fields
+            );
 
-              return { fileHeader, noConciliados };
-            })
+            return { fileHeader, noConciliados };
+          });
 
           setData(processedData);
         }
@@ -51,16 +50,15 @@ export const HistorialListComponent = () => {
       } finally {
         setIsLoading(false);
       }
-
     };
     fetchHistorial();
-  }, []);
+  }, [bankName, periodo, monto, limit]);
 
 
   return (
     <>
       <div className="d-flex justify-content-center mt-2">
-      <h2 className="mb-0">HISTORIAL</h2>
+        <h2 className="mb-0">HISTORIAL</h2>
       </div>
       <FilterHistorialComponent
         bankName={bankName}
@@ -74,8 +72,10 @@ export const HistorialListComponent = () => {
         isLoading={isLoading}
         checkYearAgo={checkYearAgo}
         setCheckYearAgo={setCheckYearAgo}
+        limit={limit}
+        setLimit={setLimit}
       />
-      <div className="historial-container mt-3">
+      <div className="historial-container mt-3 rounded">
         {isLoading ? (
           <Loadder position={"absolute"} />
         ) : (
@@ -86,7 +86,6 @@ export const HistorialListComponent = () => {
               if (checkYearAgo && item.fileHeader.periodo < oneYearAgo) {
                 return false;
               }
-              
 
               // Filtrar por bankName
               if (
@@ -166,8 +165,8 @@ export const HistorialListComponent = () => {
             });
           })()
         )}
-
       </div>
+      
     </>
   );
 };

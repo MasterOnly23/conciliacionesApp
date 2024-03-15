@@ -4,6 +4,8 @@ import "./FilterHistorialComponent.css";
 import Form from "react-bootstrap/Form";
 import PropTypes from "prop-types";
 import Reset from "../../../assets/img/icons/reset.svg";
+import { HistorialPaginationComponent } from "../table/pagination/HistorialPaginationComponent"
+import { set } from "date-fns";
 export const FilterHistorialComponent = ({
   bankName,
   setBankName,
@@ -14,12 +16,18 @@ export const FilterHistorialComponent = ({
   isLoading,
   checkYearAgo,
   setCheckYearAgo,
+  limit,
+  setLimit,
 }) => {
   const handleResetFilters = () => {
     setBankName("");
     setMonto("");
     setPeriodo(null);
     setCheckYearAgo(true);
+    setLimit(10);
+  };
+  const handleChangeLimit = (event) => {
+    setLimit(Number(event.target.value));
   };
   return (
     <Form
@@ -85,6 +93,11 @@ export const FilterHistorialComponent = ({
                 disabled={isLoading}
               />
             </div>
+            <HistorialPaginationComponent
+              handleChangeLimit={handleChangeLimit}
+              limit={limit}
+              isLoading={isLoading}
+            />
           </Form.Group>
           <Form.Group className="d-flex align-items-center">
             <div>
@@ -97,9 +110,11 @@ export const FilterHistorialComponent = ({
               onChange={(e) => setCheckYearAgo(e.target.checked)}
             />
           </Form.Group>
-          <button onClick={handleResetFilters}><img src={Reset} alt="Reset Filter" /></button>
+          <button onClick={handleResetFilters}>
+            <img src={Reset} alt="Reset Filter" />
+          </button>
         </div>
-        
+
         {/* <div className="d-flex mt-5 ms-3"></div> */}
       </div>
     </Form>
@@ -116,4 +131,7 @@ FilterHistorialComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   checkYearAgo: PropTypes.bool.isRequired,
   setCheckYearAgo: PropTypes.func.isRequired,
+  handleChangeLimit: PropTypes.func.isRequired,
+  limit: PropTypes.number.isRequired,
+  setLimit: PropTypes.func.isRequired,
 };
