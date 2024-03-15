@@ -1,7 +1,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles/HistorialListComponent.css";
 import "../filters/FilterHistorialComponent.css";
-import { format } from "date-fns";
+import { format, subYears } from "date-fns";
 import { FilterHistorialComponent } from "../filters/FilterHistorialComponent";
 import { useState, useEffect } from "react";
 import { getHistorial } from "../core/_requests.js";
@@ -10,7 +10,6 @@ import { HistorialTableComponent } from "./HistorialTableComponent";
 import { useExtractoColumns, useMayorColumns } from "./columns/useColumns";
 import { Loadder } from "../../Loadder/Loadder";
 import { FilterNoResultComponent } from "../filters/FilterNoResultComponent.jsx";
-import { set } from "date-fns";
 // import Spinner from "react-bootstrap/Spinner";
 
 export const HistorialListComponent = () => {
@@ -19,6 +18,7 @@ export const HistorialListComponent = () => {
   const [monto, setMonto] = useState(null);
   const [periodo, setPeriodo] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [checkYearAgo , setCheckYearAgo] = useState(true)
   // const { BankName, setBankName, periodo, setPeriodo } =
   //   useContext(BankContext);
   const extractoColumns = useExtractoColumns();
@@ -31,15 +31,19 @@ export const HistorialListComponent = () => {
       try {
         setIsLoading(true);
         const result = await getHistorial("", "", "historial");
-        if (result.data) {
-          const processedData = result.data.map((item) => {
-            const fileHeader = JSON.parse(item.file_header)[0].fields;
-            const noConciliados = JSON.parse(item.no_conciliados).map(
-              (noConciliado) => noConciliado.fields
-            );
 
-            return { fileHeader, noConciliados };
-          });
+        if (result.data) {
+          
+          const processedData = result.data
+            .map((item) => {
+              const fileHeader = JSON.parse(item.file_header)[0].fields;
+              const noConciliados = JSON.parse(item.no_conciliados).map(
+                (noConciliado) => noConciliado.fields
+              );
+
+              return { fileHeader, noConciliados };
+            })
+
           setData(processedData);
         }
       } catch (error) {
@@ -52,106 +56,24 @@ export const HistorialListComponent = () => {
     fetchHistorial();
   }, []);
 
-  // const filteredExtracto = data.flatMap((item) =>
-  //   item.noConciliados.filter(
-  //     (noConciliado) => noConciliado.extracto_fecha !== null
-  //   )
-  // );
-  // const filteredMayor = data.flatMap((item) =>
-  //   item.noConciliados.filter(
-  //     (noConciliado) => noConciliado.mayor_fecha !== null
-  //   )
-  // );
-
-  // data.forEach(item => {
-  //   const fileHeader = JSON.parse(item.file_header)[0].fields;
-  //   const noConciliados = JSON.parse(item.no_conciliados).map(noConciliado => noConciliado.fields);
-
-  //   console.log('fileHeader:', fileHeader);
-  //   console.log('noConciliados:', noConciliados);
-
-  //   noConciliados.forEach(noConciliado => {
-  //     console.log('noConciliado:', noConciliado.extracto_fecha);
-  //   });
-  // });
-
-  // const handleSearch = async () => {
-  //   setIsLoading(true);
-  //   const formattedPeriodo = periodo ? format(periodo, "yyyy/MM") : null;
-  //   console.log(formattedPeriodo);
-  //   // setTimeout(() => {
-  //   const queryParams = new URLSearchParams();
-  //   if (bankName) queryParams.append("bankName", bankName);
-  //   if (monto) queryParams.append("monto", monto);
-  //   if (formattedPeriodo) queryParams.append("periodo", formattedPeriodo);
-  //   const result = await getHistorial(bankName, formattedPeriodo, "historial");
-  //   if (result.data) {
-  //     const processedData = result.data.map((item) => {
-  //       const fileHeader = JSON.parse(item.file_header)[0].fields;
-  //       const noConciliados = JSON.parse(item.no_conciliados).map(
-  //         (noConciliado) => noConciliado.fields
-  //       );
-
-  //       return { fileHeader, noConciliados };
-  //     });
-  //     setData(processedData);
-  //   }
-  //   // Simula la finalización de la carga después de 3 segundos
-  //   setIsLoading(false);
-  //   // }, 3000);
-  // };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await getHistorial(BankName, periodo, 'diferencias');
-  //     if(result.data){
-  //       print(result.data);
-  //       setData(result.data);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [BankName, periodo]);
-  // const data = [
-  //   {
-  //     file_header:
-  //       '[{"model": "conciliaciones.fileheaders", "pk": 57, "fields": {"name": "FILES PARA CONCILIAR NOV 23 COMAFI.xlsx", "bank_name": "COMAFI", "periodo": "2024/01", "date_created": "2024-03-01", "is_deleted": false}}]',
-  //     no_conciliados:
-  //       '[{"model": "conciliaciones.noconciliado", "pk": 13012, "fields": {"file_header": 57, "extracto_fecha": "2023-11-01", "extracto_descripcion": "Transf Inmed. Cuentas Propias eBanking", "extracto_monto": "-1500000.00", "mayor_fecha": null, "mayor_descripcion": "", "mayor_monto": null}}, {"model": "conciliaciones.noconciliado", "pk": 13013, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-01", "mayor_descripcion": "Transf Comafi a Galicia", "mayor_monto": "-1200000.00"}}, {"model": "conciliaciones.noconciliado", "pk": 13014, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-01", "mayor_descripcion": "Transf Comafi a Galicia", "mayor_monto": "-300000.00"}}, {"model": "conciliaciones.noconciliado", "pk": 13015, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-03", "mayor_descripcion": "03/11/2023 OP 00079738 Rinde Estanis TC Visa Comaf", "mayor_monto": "-194428.06"}}, {"model": "conciliaciones.noconciliado", "pk": 13016, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-06", "mayor_descripcion": "S/OP 00079530 BANCO COMAFI S.A.", "mayor_monto": "-120976.43"}}]',
-  //   },
-  //   {
-  //     file_header:
-  //       '[{"model": "conciliaciones.fileheaders", "pk": 58, "fields": {"name": "FILES PARA CONCILIAR NOV 23 COMAFI.xlsx", "bank_name": "COMAFI", "periodo": "2024/02", "date_created": "2024-03-01", "is_deleted": false}}]',
-  //     no_conciliados:
-  //       '[{"model": "conciliaciones.noconciliado", "pk": 13013, "fields": {"file_header": 58, "extracto_fecha": "2023-11-01", "extracto_descripcion": "Transf Inmed. Cuentas Propias eBanking", "extracto_monto": "-1500001.00", "mayor_fecha": null, "mayor_descripcion": "", "mayor_monto": null}}, {"model": "conciliaciones.noconciliado", "pk": 13013, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-01", "mayor_descripcion": "Transf Comafi a Galicia", "mayor_monto": "-1200000.00"}}, {"model": "conciliaciones.noconciliado", "pk": 13014, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-01", "mayor_descripcion": "Transf Comafi a Galicia", "mayor_monto": "-300000.00"}}, {"model": "conciliaciones.noconciliado", "pk": 13015, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-03", "mayor_descripcion": "03/11/2023 OP 00079738 Rinde Estanis TC Visa Comaf", "mayor_monto": "-194428.06"}}, {"model": "conciliaciones.noconciliado", "pk": 13016, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-06", "mayor_descripcion": "S/OP 00079530 BANCO COMAFI S.A.", "mayor_monto": "-120976.43"}}]',
-  //   },
-  //   {
-  //     file_header:
-  //       '[{"model": "conciliaciones.fileheaders", "pk": 59, "fields": {"name": "FILES PARA CONCILIAR NOV 23 COMAFI.xlsx", "bank_name": "COMAFI", "periodo": "2024/03", "date_created": "2024-03-01", "is_deleted": false}}]',
-  //     no_conciliados:
-  //       '[{"model": "conciliaciones.noconciliado", "pk": 13014, "fields": {"file_header": 59, "extracto_fecha": "2023-11-01", "extracto_descripcion": "Transf Inmed. Cuentas Propias eBanking", "extracto_monto": "-1500002.00", "mayor_fecha": null, "mayor_descripcion": "", "mayor_monto": null}}, {"model": "conciliaciones.noconciliado", "pk": 13013, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-01", "mayor_descripcion": "Transf Comafi a Galicia", "mayor_monto": "-1200000.00"}}, {"model": "conciliaciones.noconciliado", "pk": 13014, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-01", "mayor_descripcion": "Transf Comafi a Galicia", "mayor_monto": "-300000.00"}}, {"model": "conciliaciones.noconciliado", "pk": 13015, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-03", "mayor_descripcion": "03/11/2023 OP 00079738 Rinde Estanis TC Visa Comaf", "mayor_monto": "-194428.06"}}, {"model": "conciliaciones.noconciliado", "pk": 13016, "fields": {"file_header": 57, "extracto_fecha": null, "extracto_descripcion": "", "extracto_monto": null, "mayor_fecha": "2023-11-06", "mayor_descripcion": "S/OP 00079530 BANCO COMAFI S.A.", "mayor_monto": "-120976.43"}}]',
-  //   },
-  // ];
-  // const processedData = data.map(item => {
-  //   const fileHeader = JSON.parse(item.file_header)[0].fields;
-  //   const noConciliados = JSON.parse(item.no_conciliados).map(noConciliado => noConciliado.fields);
-
-  //   return { fileHeader, noConciliados };
-  // });
-  // const filteredExtracto = processedData.filter((item) => item.extracto !== null);
-  // const filteredMayor = processedData.filter((item) => item.mayor !== null);
-  // console.log('filteredExtracto:', filteredExtracto);
-  // console.log('filteredMayor:', filteredMayor);
 
   return (
     <>
+      <div className="d-flex justify-content-center mt-2">
+      <h2 className="mb-0">HISTORIAL</h2>
+      </div>
       <FilterHistorialComponent
+        bankName={bankName}
         setBankName={setBankName}
+        monto={monto}
         setMonto={setMonto}
         setPeriodo={setPeriodo}
         periodo={periodo}
         // onSearch={handleSearch}
         setIsLoading={setIsLoading}
         isLoading={isLoading}
+        checkYearAgo={checkYearAgo}
+        setCheckYearAgo={setCheckYearAgo}
       />
       <div className="historial-container mt-3">
         {isLoading ? (
@@ -159,6 +81,13 @@ export const HistorialListComponent = () => {
         ) : (
           (() => {
             const filteredData = data.filter((item) => {
+              const oneYearAgo = format(subYears(new Date(), 1), "yyyy/MM");
+              //filtro inicial
+              if (checkYearAgo && item.fileHeader.periodo < oneYearAgo) {
+                return false;
+              }
+              
+
               // Filtrar por bankName
               if (
                 bankName.toUpperCase() &&
