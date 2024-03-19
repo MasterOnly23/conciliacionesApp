@@ -2,6 +2,7 @@
   "name": "conciliacionesapp",
   "private": true,
   "version": "0.0.0",
+  "homepage": "http://srvapps/Conciliaciones",
   "type": "module",
   "scripts": {
     "dev": "vite",
