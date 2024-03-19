@@ -11,7 +11,6 @@ const Page404 = lazy(() => import("../components/Page404/Page404").then(module =
 
 
 const MainRoutes = () => {
-  const rutaServer = "/Conciliaciones"
   return (
     <Router>
         <div className="sidebarRoute">
@@ -20,10 +19,10 @@ const MainRoutes = () => {
       <Header />
       <Suspense fallback={<Loadder/>}>
       <Routes>
-      <Route path={rutaServer} exact element={<DashBoard />} />
-        <Route path={rutaServer+"/historial"} element={<Historial/>} />
-        <Route path={rutaServer+"/:Banco"} element={<BankManagement/>} />
-        <Route path={rutaServer+"/*"} element={<Page404 />} />
+      <Route path="/" exact element={<DashBoard />} />
+        <Route path="/historial" element={<Historial/>} />
+        <Route path="/:Banco" element={<BankManagement/>} />
+        <Route path="/*" element={<Page404 />} />
       </Routes>
       </Suspense>
       
