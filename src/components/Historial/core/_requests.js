@@ -9,4 +9,12 @@ const getHistorial = async (bankName, period, action, limit) => {
   );
 };
 
-export { getHistorial };
+const exportExcel = async (action, fileId) => {
+  return axios.get(
+    `${GET_NO_CONCILIADOS}?action=${action}&fileId=${fileId}`, {
+    responseType: 'blob' 
+    }
+  );
+};
+
+export { getHistorial, exportExcel };

@@ -40,7 +40,7 @@ export const FilterHistorialComponent = ({
           <Form.Group className="mb-0" controlId="datePicker">
             <Form.Label>Periodo:</Form.Label>
             <DatePicker
-              selected={periodo}
+              selected={periodo || ""}
               onChange={(date) => {
                 setPeriodo(date);
               }}
@@ -131,7 +131,6 @@ FilterHistorialComponent.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   checkYearAgo: PropTypes.bool.isRequired,
   setCheckYearAgo: PropTypes.func.isRequired,
-  handleChangeLimit: PropTypes.func.isRequired,
   limit: PropTypes.number.isRequired,
   setLimit: PropTypes.func.isRequired,
 };

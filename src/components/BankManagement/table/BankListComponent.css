@@ -3,10 +3,24 @@
     background-color: white;
     padding: 15px;
     border-radius: 10px;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     margin: 50px;
+    overflow-y: auto;
+    
 
+}
+.table-container::-webkit-scrollbar {
+  width: 10px !important; /* Ancho de la barra de desplazamiento */
+}
+.table-container::-webkit-scrollbar-track {
+  background: #f5f5f5 !important; /* Color de fondo */
+  border-radius: 5px !important; /* Borde redondeado para la pista de la barra de desplazamiento */
+}
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #888888af !important; /* Color de la barra de desplazamiento */
+  border-radius: 50px !important; /* Borde redondeado para la barra de desplazamiento */
+  border: 2px solid #f5f5f5 !important; /* Borde alrededor de la barra de desplazamiento */
 }
 
 .table {
@@ -18,3 +32,8 @@
   .border-right-custom {
     border-right: 1px dashed #dee2e6;
   }
+
+
+.table-container-group{
+  max-height: 600px;
+}

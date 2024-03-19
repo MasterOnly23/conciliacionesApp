@@ -39,6 +39,6 @@ export const HistorialPaginationComponent = ({ handleChangeLimit, limit, isLoadi
 
 HistorialPaginationComponent.propTypes = {
     handleChangeLimit: propTypes.func.isRequired,
-    limit: propTypes.string.isRequired,
+    limit: propTypes.number.isRequired,
     isLoading: propTypes.bool.isRequired
 }

@@ -26,7 +26,7 @@ export const SideBarMenuComponent = () => {
     ],
     [menuNames.AJUSTES]: [
       { path: "/historial", name: "Historial" },
-      { path: "/config2", name: "Config 2" }
+      // { path: "/config2", name: "Config 2" }
     ]
   };
 

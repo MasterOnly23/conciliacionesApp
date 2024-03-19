@@ -1,10 +1,11 @@
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles/HistorialListComponent.css";
 import "../filters/FilterHistorialComponent.css";
+import Button from "react-bootstrap/Button";
 import { format, subYears } from "date-fns";
 import { FilterHistorialComponent } from "../filters/FilterHistorialComponent";
 import { useState, useEffect } from "react";
-import { getHistorial } from "../core/_requests.js";
+import { getHistorial, exportExcel } from "../core/_requests.js";
 // import { BankContext } from "../../BankManagement/core/_context";
 import { HistorialTableComponent } from "./HistorialTableComponent";
 import { useExtractoColumns, useMayorColumns } from "./columns/useColumns";
@@ -32,7 +33,6 @@ export const HistorialListComponent = () => {
       try {
         setIsLoading(true);
         const result = await getHistorial("", "", "historial", limit);
-
         if (result.data) {
           const processedData = result.data.map((item) => {
             const fileHeader = JSON.parse(item.file_header)[0].fields;
@@ -122,6 +122,21 @@ export const HistorialListComponent = () => {
               return <FilterNoResultComponent />; // Este es tu componente que se renderiza cuando no hay resultados
             }
 
+            const downloadFile = async (id, bank_name, period) => {
+              try {
+                const response = await exportExcel('export', id);
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Conciliacion-${bank_name}-${period}.xlsx`;
+                document.body.appendChild(a); // Necesitamos agregar el enlace al documento para que funcione en Firefox
+                a.click();
+                a.remove(); // Luego podemos eliminar el enlace
+              } catch (error) {
+                console.error('Hubo un error al descargar el archivo:', error);
+              }
+            };
+
             return filteredData.map((item, index) => {
               const filteredExtracto = item.noConciliados.filter(
                 (noConciliado) => noConciliado.extracto_fecha !== null
@@ -134,11 +149,14 @@ export const HistorialListComponent = () => {
                 <div
                   key={index}
                   className="border rounded mt-1 mb-3 ms-1 container-fileHeader">
+                    <div className="d-flex justify-content-end me-2 mt-2">
+                    <Button className="btn btn-success p-1" onClick={() => downloadFile(item.noConciliados[0].file_header, item.fileHeader.bank_name, item.fileHeader.periodo)}>Descargar Excel</Button>  
+                    </div>
                   <h3 className="text-center mb-0 pt-2">
                     {item.fileHeader.bank_name} - {item.fileHeader.periodo}{" "}
                   </h3>
 
-                  <div className="d-flex ">
+                  <div className="d-flex table-container-group">
                     <div
                       className={`table-container ${
                         !isLoading ? "visible" : ""
