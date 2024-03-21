@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import "./SubHeader.css";
-import Comafi from "../../../assets/img/bancos/banco_comafi.webp";
+import Comafi from "../../../assets/img/bancos/Comafi.png";
 import Santander from "../../../assets/img/bancos/banco_santander.png";
 import Galicia from "../../../assets/img/bancos/banco_galicia.png";
 import ICBC from "../../../assets/img/bancos/banco_icbc.png";
