@@ -1,5 +1,6 @@
 // import Table from 'react-bootstrap/Table';
 import "./BankListComponent.css";
+import PropTypes from "prop-types";
 import { useEffect, useState, useContext } from "react";
 import { getNoConciliados, exportExcel } from "../core/_requests";
 import { BankContext } from "../core/_context";
@@ -17,6 +18,7 @@ export const BankListComponent = () => {
   const mayorColumns = useMayorColumns();
   const filteredExtracto = data.filter((item) => item.extracto !== null);
   const filteredMayor = data.filter((item) => item.mayor !== null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,3 +89,4 @@ export const BankListComponent = () => {
     </>
   );
 };
+

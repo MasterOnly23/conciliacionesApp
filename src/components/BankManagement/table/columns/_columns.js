@@ -11,6 +11,10 @@ const ExtractoColumns  = [
       Header: 'Extracto Monto',
       accessor: 'extracto.monto',
     },
+    {
+      Header: 'Extracto Codigo',
+      accessor: 'extracto.codigo',
+    },
     
   ];
   
@@ -27,6 +31,10 @@ const ExtractoColumns  = [
     {
         Header: 'Mayor Monto',
         accessor: 'mayor.monto',
+    },
+    {
+        Header: 'Mayor Codigo',
+        accessor: 'mayor.codigo',
     },
     
 ];
