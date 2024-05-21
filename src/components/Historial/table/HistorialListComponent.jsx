@@ -137,7 +137,14 @@ export const HistorialListComponent = () => {
               }
             };
 
-            return filteredData.map((item, index) => {
+            return filteredData
+              .sort((a, b) => {
+                console.log(a.fileHeader.periodo.split("/").reverse().join("-"));
+                const dateA = new Date(a.fileHeader.periodo.split("/").join("-"));
+                const dateB = new Date(b.fileHeader.periodo.split("/").join("-"));
+                return dateB - dateA;
+              })
+              .map((item, index) => {
               const filteredExtracto = item.noConciliados.filter(
                 (noConciliado) => noConciliado.extracto_fecha !== null
               );
